@@ -77,11 +77,15 @@ def _run_tidy(
     )
     return outfile
 
+CC_SOURCES = ["cc", "cpp", "cxx", "c++", "C"]
+C_SOURCES = ["c"]
+COMPILE_UNIT = CC_SOURCES + C_SOURCES
+
 def _rule_sources(ctx):
     srcs = []
     if hasattr(ctx.rule.attr, "srcs"):
         for src in ctx.rule.attr.srcs:
-            srcs += [src for src in src.files.to_list() if src.is_source]
+            srcs += [src for src in src.files.to_list() if src.is_source and src.extension in COMPILE_UNIT]
     return srcs
 
 def _toolchain_flags(ctx):
