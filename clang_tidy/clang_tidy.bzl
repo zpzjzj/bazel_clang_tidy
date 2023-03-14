@@ -41,6 +41,11 @@ def _run_tidy(
     # add source to check
     args.add(infile.path)
 
+    args.add("--extra-arg-before=-xc++")
+
+    args.add("--fix")
+    args.add("--fix-errors")
+
     # start args passed to the compiler
     args.add("--")
 
